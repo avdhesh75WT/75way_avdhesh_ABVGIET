@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import schedule from "node-schedule";
 import sendMail from "../services/mails";
+import Task from "../models/Task";
+import { JOBS } from "..";
 
 export const validatePassword = (password: string): boolean => {
   const passwordRegex =
@@ -45,7 +47,7 @@ export const handleInterval = (
       sendMail(email, title);
     });
   } else if (interval === "30m") {
-    job = schedule.scheduleJob("*/30m * * * *", function () {
+    job = schedule.scheduleJob("*/30 * * * *", function () {
       console.log("After every 30 min");
       sendMail(email, title);
     });
@@ -70,7 +72,9 @@ export const handleInterval = (
       sendMail(email, title);
     });
   } else return "wrong";
+  JOBS.push(job);
   console.log(job.name);
+  return job.name;
 };
 
 export const handleTime = (
@@ -94,5 +98,7 @@ export const handleTime = (
     );
     sendMail(email, title);
   });
+  JOBS.push(job);
   console.log(job.name);
+  return job.name;
 };

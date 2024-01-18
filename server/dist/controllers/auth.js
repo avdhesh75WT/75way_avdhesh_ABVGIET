@@ -25,9 +25,9 @@ const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const user = yield User_1.default.findOne({ userName });
         if (user)
             return res.status(400).json("User already exists");
-        if (userName.lenght < 5)
+        if (userName.length < 5)
             return res.status(400).json("Username must be atleast 5 letters long");
-        if (password.lenght < 8)
+        if (password.length < 8)
             return res.status(400).json("Password must be atleast 8 letters long");
         const isValidPassword = (0, utils_1.validatePassword)(password);
         const isValidEmail = (0, utils_1.validateEmail)(email);

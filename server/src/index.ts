@@ -6,6 +6,13 @@ import connectToDatabase from "./database";
 import taskRoutes from "./routes/task";
 import authRoutes from "./routes/auth";
 import { cronJob } from "./services/cron";
+import { Job } from "node-schedule";
+
+export let JOBS: any[] = [];
+export const removeJob = (jobToBeDeleted: Job) => {
+  JOBS = JOBS.filter((job) => job !== jobToBeDeleted);
+  console.log(JOBS.length);
+};
 
 const app: Express = express();
 connectToDatabase();

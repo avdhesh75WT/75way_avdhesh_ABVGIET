@@ -9,4 +9,6 @@ const task_1 = require("../controllers/task");
 const auth_1 = require("../middleware/auth");
 router.get("/", auth_1.verifyToken, task_1.getAlltasks);
 router.post("/create", auth_1.verifyToken, task_1.createTask);
+router.patch("/:taskId/update", auth_1.verifyToken, task_1.updateTask);
+router.delete("/:taskId/delete", auth_1.verifyToken, task_1.deleteTask);
 exports.default = router;

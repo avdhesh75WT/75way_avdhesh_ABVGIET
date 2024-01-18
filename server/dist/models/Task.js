@@ -10,6 +10,11 @@ const TaskSchema = new mongoose_1.default.Schema({
         unique: true,
         required: true,
     },
+    jobName: {
+        type: String,
+        unique: true,
+        required: true,
+    },
     time: {
         type: String,
         default: null,

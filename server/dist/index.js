@@ -3,6 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.removeJob = exports.JOBS = void 0;
 const express_1 = __importDefault(require("express"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const cors_1 = __importDefault(require("cors"));
@@ -11,6 +12,12 @@ const database_1 = __importDefault(require("./database"));
 const task_1 = __importDefault(require("./routes/task"));
 const auth_1 = __importDefault(require("./routes/auth"));
 const cron_1 = require("./services/cron");
+exports.JOBS = [];
+const removeJob = (jobToBeDeleted) => {
+    exports.JOBS = exports.JOBS.filter((job) => job !== jobToBeDeleted);
+    console.log(exports.JOBS.length);
+};
+exports.removeJob = removeJob;
 const app = (0, express_1.default)();
 (0, database_1.default)();
 app.use(body_parser_1.default.json({ limit: "30mb" }));

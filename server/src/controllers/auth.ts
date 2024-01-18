@@ -11,9 +11,9 @@ export const signUp = async (req: Request, res: Response) => {
       return res.status(400).json("Please enter all the required fields");
     const user = await User.findOne({ userName });
     if (user) return res.status(400).json("User already exists");
-    if (userName.lenght < 5)
+    if (userName.length < 5)
       return res.status(400).json("Username must be atleast 5 letters long");
-    if (password.lenght < 8)
+    if (password.length < 8)
       return res.status(400).json("Password must be atleast 8 letters long");
     const isValidPassword = validatePassword(password);
     const isValidEmail = validateEmail(email);

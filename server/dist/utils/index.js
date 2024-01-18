@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.handleTime = exports.handleInterval = exports.validateEmail = exports.validatePassword = void 0;
 const node_schedule_1 = __importDefault(require("node-schedule"));
 const mails_1 = __importDefault(require("../services/mails"));
+const __1 = require("..");
 const validatePassword = (password) => {
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     return passwordRegex.test(password);
@@ -49,7 +50,7 @@ const handleInterval = (interval, email, title) => {
         });
     }
     else if (interval === "30m") {
-        job = node_schedule_1.default.scheduleJob("*/30m * * * *", function () {
+        job = node_schedule_1.default.scheduleJob("*/30 * * * *", function () {
             console.log("After every 30 min");
             (0, mails_1.default)(email, title);
         });
@@ -80,7 +81,9 @@ const handleInterval = (interval, email, title) => {
     }
     else
         return "wrong";
+    __1.JOBS.push(job);
     console.log(job.name);
+    return job.name;
 };
 exports.handleInterval = handleInterval;
 const handleTime = (time, email, title, priority) => {
@@ -100,6 +103,8 @@ const handleTime = (time, email, title, priority) => {
         console.log(`Expected to run at ${time} but ran at ${new Date().toString()}, with priority ${priority}`);
         (0, mails_1.default)(email, title);
     });
+    __1.JOBS.push(job);
     console.log(job.name);
+    return job.name;
 };
 exports.handleTime = handleTime;
